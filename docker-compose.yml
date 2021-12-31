@@ -11,8 +11,15 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
     volumes:
       - order-db-volume:/var/lib/mysql
+      - ./db/cnf:/etc/mysql/conf.d
     ports:
       - "${MYSQL_PORT:-3306}:3306"
+  api:
+    build: ./api
+    volumes:
+      - ./api:/var/www/
+    ports:
+      - "8080:8080"
 volumes:
   order-db-volume:
     external: true
